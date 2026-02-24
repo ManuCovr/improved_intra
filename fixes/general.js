@@ -368,7 +368,7 @@ async function setPageEvaluationsImprovements(match) {
 		const lastTextNode = textNodes[textNodes.length - 1];
 
 		// Find the project to be evaluated (after the word "on")
-		const projectMatch = lastTextNode.textContent.match(/(\s+.+)?on (.+)/);
+		const projectMatch = lastTextNode.textContent.match(/(\s+.+)?\son\s(.+)/);
 		if (!projectMatch) {
 			iConsole.warn(`Could not find project to be evaluated in evaluation text "${lastTextNode.textContent}". Unable to make the project clickable. Evaluation container: `, evaluation);
 			continue;
@@ -396,7 +396,7 @@ async function setPageEvaluationsImprovements(match) {
 		// Remove text node, can't update it.
 		// Create a new text node that contains the old text before "on" if it exists, "on" and no project name.
 		lastTextNode.remove();
-		projectItemText.insertBefore(document.createTextNode((projectMatch[1]? projectMatch[1] : "") + " on "), projectLink);
+		projectItemText.insertBefore(document.createTextNode((projectMatch[1] ? projectMatch[1] : "") + " on "), projectLink);
 	}
 }
 
