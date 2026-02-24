@@ -15,19 +15,29 @@ function validateUrl(value) {
 	return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
 }
 
+// cache for urlExists() results to avoid multiple requests for the same URL
+const urlExistsCache = {};
+
 // see if a url exists (no 404)
 function urlExists(url) {
 	return new Promise((resolve) => {
+		if (url in urlExistsCache) {
+			resolve(urlExistsCache[url]);
+			return;
+		}
 		const xhr = new XMLHttpRequest();
 		xhr.open('HEAD', url, true);
 		xhr.onload = () => {
 			if (xhr.status >= 200 && xhr.status < 400) {
+				urlExistsCache[url] = true;
 				resolve(true);
 			} else {
+				urlExistsCache[url] = false;
 				resolve(false);
 			}
 		};
 		xhr.onerror = () => {
+			urlExistsCache[url] = false;
 			resolve(false);
 		};
 		xhr.withCredentials = true; // Make sure to send request from the context of the current page
