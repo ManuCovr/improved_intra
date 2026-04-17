@@ -945,10 +945,39 @@ textarea {
 	}
 }
 
-/* Display line breaks and break words in feedback comments accordingly */
-.correction-item .corrected-item .correction-comment-item > span,
-#scales-list-container .feedback-item > span,
-li.scaleteam-list-item .comment {
-	word-break: break-word !important;
-	white-space: pre-wrap !important;
+/* match XP bar and profile stats to the selected appearance theme */
+.profile-item .user-progress .progress .on-progress {
+    background-color: var(--theme-color) !important;
+    color: #fff !important;
+    font-size: 16px !important;
+}
+
+.profile-item .user-wallet .coalition-span,
+.profile-item .user-correction-point .coalition-span,
+.profile-item .user-grade .coalition-span {
+    color: var(--theme-color) !important;
+}
+
+
+
+/* weekly attendance recolor */
+#attendance_container #metrics {
+    color: var(--theme-color) !important;
+}
+
+#attendance_container #metrics ol {
+    border-left-color: var(--theme-color) !important;
+}
+
+#attendance_container #metrics li {
+    background-color: var(--theme-color) !important;
+}
+
+#attendance_container #metrics li span {
+    color: var(--theme-color) !important;
+}
+
+#attendance_container .title .coalition-span,
+#goals-container .title .coalition-span {
+    color: var(--theme-color) !important;
 }
