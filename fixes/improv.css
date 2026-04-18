@@ -1142,3 +1142,78 @@ textarea {
     padding-top: 0 !important;
     margin-top: 0 !important;
 }
+
+body .home-middle-td *,
+body .container-fullsize * {
+    font-weight: 600 !important;
+}
+
+body .container-fullsize h2,
+body .container-fullsize h3,
+body .container-fullsize h4,
+body .container-fullsize .title {
+    font-weight: 700 !important;
+}
+
+body .iil-layout-btn  { font-weight: 700 !important; }
+body .iil-hidden-pill { font-weight: 600 !important; }
+
+/* ── Project names only (not the tab buttons) ── */
+[data-iil-widget="projects"] ul li a,
+[data-iil-widget="projects"] .project-item a {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    padding: 10px 14px !important;
+    margin-bottom: 4px !important;
+    border-left: 3px solid var(--theme-color) !important;
+    border-radius: 0 6px 6px 0 !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    display: block !important;
+    transition: background 0.15s ease, padding-left 0.15s ease !important;
+}
+[data-iil-widget="projects"] ul li a:hover,
+[data-iil-widget="projects"] .project-item a:hover {
+    background: rgba(255, 255, 255, 0.07) !important;
+    padding-left: 18px !important;
+}
+
+/* ── Hide Transcript dropdown and Quests button ── */
+[data-iil-widget="projects"] .btn-group:has(.dropdown-toggle),
+[data-iil-widget="projects"] a[href*="quests"] {
+    display: none !important;
+}
+
+/* ── PROJECTS title ── */
+[data-iil-widget="projects"] .title,
+[data-iil-widget="projects"] h2,
+[data-iil-widget="projects"] h3 {
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
+/* ── Project rows ── */
+[data-iil-widget="projects"] a.project-item {
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px 16px !important;
+    margin-bottom: 6px !important;
+    border-radius: 8px !important;
+    border-left: 3px solid var(--theme-color) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: var(--theme-color) !important;
+    text-decoration: none !important;
+    transition: background 0.15s ease, padding-left 0.15s ease !important;
+}
+[data-iil-widget="projects"] a.project-item:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    padding-left: 20px !important;
+}
+
+/* ── Hide status div entirely ── */
+[data-iil-widget="projects"] a.project-item .status {
+    display: none !important;
+}
