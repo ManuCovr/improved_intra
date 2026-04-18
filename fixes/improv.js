@@ -444,3 +444,171 @@ if (document.readyState === "loading") {
 } else {
     initWidgetLayout();
 }
+
+// ── Social links box ──
+const SOCIAL_STORAGE_KEY = "iil-social-links";
+
+const PLATFORMS = {
+    discord: {
+        label: "Discord",
+        modes: ["username", "server"],
+        modeLabels: ["Username", "Server invite"],
+        placeholder: { username: "e.g. coldone42", server: "https://discord.gg/..." },
+        validate: (val, mode) => mode === "username" ? true : val.startsWith("https://discord.gg/"),
+        toHref: (val, mode) => mode === "username" ? null : val,
+        display: (val, mode) => mode === "username" ? val : "Discord Server",
+    },
+    github: {
+        label: "GitHub",
+        modes: null,
+        placeholder: { default: "https://github.com/username" },
+        validate: (val) => val.startsWith("https://github.com/"),
+        toHref: (val) => val,
+        display: (val) => val.replace("https://github.com/", ""),
+    },
+    linkedin: {
+        label: "LinkedIn",
+        modes: null,
+        placeholder: { default: "https://linkedin.com/in/username" },
+        validate: (val) => val.startsWith("https://linkedin.com/in/"),
+        toHref: (val) => val,
+        display: (val) => val.replace("https://linkedin.com/in/", ""),
+    },
+};
+
+function getSocialLinks() {
+    try { return JSON.parse(localStorage.getItem(SOCIAL_STORAGE_KEY) || "{}"); }
+    catch { return {}; }
+}
+
+function saveSocialLinks(links) {
+    localStorage.setItem(SOCIAL_STORAGE_KEY, JSON.stringify(links));
+}
+
+function createSocialBox() {
+    const target = document.querySelector(".profile-item .user-header-box.infos");
+    if (!target) return;
+    if (document.getElementById("iil-social-box")) return;
+
+    const links = getSocialLinks();
+
+    const box = document.createElement("div");
+    box.id = "iil-social-box";
+    box.className = "user-header-box infos";
+    box.style.width = "100%";
+    box.style.minHeight = "180px";
+    box.style.display = "flex";
+    box.style.flexDirection = "column";
+    box.style.justifyContent = "center";
+
+    function render(editing) {
+        if (editing) {
+            box.innerHTML = `
+                <div style="position:absolute;right:0;display:flex;gap:12px">
+                    <button class="iil-social-hbtn" id="iil-social-confirm" title="Save">✓</button>
+                    <button class="iil-social-hbtn" id="iil-social-cancel" title="Cancel">✕</button>
+                </div>
+                <div id="iil-social-links">
+                    ${Object.entries(PLATFORMS).map(([key, p]) => {
+                        const saved = links[key] || {};
+                        const mode = saved.mode || (p.modes ? p.modes[0] : "default");
+                        const val = saved.val || "";
+                        return `
+                        <div class="iil-social-row iil-social-edit-row" data-key="${key}">
+                            <span class="iil-social-platform-label">${p.label}</span>
+                            ${p.modes ? `
+                                <select class="iil-social-mode-select" data-key="${key}">
+                                    ${p.modes.map(m => `<option value="${m}" ${mode === m ? "selected" : ""}>${p.modeLabels[p.modes.indexOf(m)]}</option>`).join("")}
+                                </select>
+                            ` : ""}
+                            <input class="iil-social-input-val" data-key="${key}" placeholder="${p.placeholder[mode] || p.placeholder.default}" value="${val}"/>
+                        </div>`;
+                    }).join("")}
+                </div>
+            `;
+
+            // update placeholder on mode change
+            box.querySelectorAll(".iil-social-mode-select").forEach(sel => {
+                sel.addEventListener("change", () => {
+                    const key = sel.dataset.key;
+                    const input = box.querySelector(`.iil-social-input-val[data-key="${key}"]`);
+                    input.placeholder = PLATFORMS[key].placeholder[sel.value] || "";
+                    input.value = "";
+                });
+            });
+
+            box.querySelector("#iil-social-confirm").addEventListener("click", () => {
+                const updated = {};
+                let error = null;
+                Object.keys(PLATFORMS).forEach(key => {
+                    const p = PLATFORMS[key];
+                    const val = box.querySelector(`.iil-social-input-val[data-key="${key}"]`).value.trim();
+                    const modeSel = box.querySelector(`.iil-social-mode-select[data-key="${key}"]`);
+                    const mode = modeSel ? modeSel.value : "default";
+                    if (val && !p.validate(val, mode)) {
+                        error = `Invalid ${p.label} link.`;
+                    }
+                    updated[key] = { val, mode };
+                });
+                if (error) { alert(error); return; }
+                saveSocialLinks(updated);
+                Object.assign(links, updated);
+                render(false);
+            });
+
+            box.querySelector("#iil-social-cancel").addEventListener("click", () => render(false));
+
+        } else {
+            box.innerHTML = `
+                <div id="iil-social-header">
+                    <span id="iil-social-title">Links</span>
+                    <button class="iil-social-hbtn" id="iil-social-edit-btn" title="Edit">✎</button>
+                </div>
+                <div id="iil-social-links">
+                    ${Object.entries(PLATFORMS).map(([key, p]) => {
+                        const saved = links[key] || {};
+                        const val = saved.val || "";
+                        const mode = saved.mode || (p.modes ? p.modes[0] : "default");
+                        const href = val ? p.toHref(val, mode) : null;
+                        const display = val ? p.display(val, mode) : null;
+                        return val ? `
+                            ${href
+                                ? `<a class="iil-social-row iil-social-link" href="${href}" target="_blank" rel="noopener">
+                                        <span class="iil-social-platform-tag">${p.label}</span>
+                                        <span class="iil-social-link-label">${display}</span>
+                                        <span class="iil-social-link-arrow">↗</span>
+                                   </a>`
+                                : `<div class="iil-social-row iil-social-nolink">
+                                        <span class="iil-social-platform-tag">${p.label}</span>
+                                        <span class="iil-social-link-label">${display}</span>
+                                   </div>`
+                            }
+                        ` : `
+                            <div class="iil-social-row iil-social-empty">
+                                <span class="iil-social-platform-tag">${p.label}</span>
+                                <span>—</span>
+                            </div>
+                        `;
+                    }).join("")}
+                </div>
+            `;
+            box.querySelector("#iil-social-edit-btn").addEventListener("click", () => render(true));
+        }
+    }
+
+    render(false);
+    target.replaceWith(box);
+}
+
+
+function initSocialBox() {
+    if (/^profile\.intra\.42\.fr\/?($|home)/.test(pageUrl)) {
+        if (document.readyState === "loading") {
+            window.addEventListener("DOMContentLoaded", createSocialBox);
+        } else {
+            createSocialBox();
+        }
+    }
+}
+
+initSocialBox();
