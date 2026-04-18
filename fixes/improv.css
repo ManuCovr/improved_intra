@@ -981,3 +981,164 @@ textarea {
 #goals-container .title .coalition-span {
     color: var(--theme-color) !important;
 }
+
+.widget-hidden {
+    display: none !important;
+}
+
+// Edit layout 
+#iil-layout-controls {
+    margin: 10px 0 14px 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 14px 0;
+    background-color: #12141a !important;
+    background: #12141a !important;
+    border-radius: 6px;
+    gap: 24px;
+}
+
+.iil-layout-btn {
+    margin-left: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 2px solid var(--theme-color) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: var(--theme-color) !important;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.iil-layout-btn:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.20);
+    transform: translateY(-1px);
+}
+
+.iil-layout-btn:active {
+    transform: translateY(0);
+}
+
+.iil-layout-btn-icon {
+    font-size: 15px;
+    line-height: 1;
+}
+.profile-item .profile-item-top + #iil-layout-controls {
+    background-color: #12141a !important;
+    background: #12141a !important;
+}
+
+/* Widget drag and drop */
+.widget-draggable {
+    cursor: grab !important;
+    transition: opacity 0.15s ease, box-shadow 0.15s ease;
+}
+.widget-draggable:active {
+    cursor: grabbing !important;
+}
+.dragging {
+    opacity: 0.4 !important;
+    box-shadow: 0 0 0 2px var(--theme-color) !important;
+    border-radius: 6px;
+}
+
+/* Widget hidden state */
+.widget-hidden {
+    display: none !important;
+}
+
+/* In edit mode, show a subtle outline on each widget so you can see the drag targets */
+.widget-draggable {
+    cursor: grab !important;
+    outline: 1.5px dashed rgba(255, 255, 255, 0.12) !important;
+    outline-offset: -4px;
+    border-radius: 6px;
+}
+.dragging {
+    opacity: 0.4 !important;
+    transform: scale(0.92) !important;
+    box-shadow: 0 0 0 2px var(--theme-color) !important;
+    border-radius: 6px;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    pointer-events: none !important;
+}
+.drag-target {
+    outline: 2px dashed var(--theme-color) !important;
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+.iil-hide-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid var(--theme-color) !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    color: var(--theme-color) !important;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    transition: background 0.15s ease;
+}
+.iil-hide-btn:hover {
+    background: var(--theme-color) !important;
+    color: #000 !important;
+}
+.iil-hidden-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 99px;
+    border: 1.5px solid var(--theme-color) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: var(--theme-color) !important;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.iil-hidden-pill:hover {
+    background: var(--theme-color) !important;
+    color: #000 !important;
+}
+#iil-hidden-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.profile-item .profile-item-top {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.profile-item {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.home-middle-td {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+.container-fullsize {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
