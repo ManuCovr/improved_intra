@@ -648,3 +648,44 @@ function initSocialBox() {
 
 initSocialBox();
 
+function fixLogtimeSVG() {
+    const svg = document.querySelector('[data-iil-widget="logtime"] #user-locations');
+    if (!svg) return;
+    
+    // find the actual bounds of the content
+    const rects = [...svg.querySelectorAll('rect')];
+    if (!rects.length) return;
+    
+    const xs = rects.map(r => parseFloat(r.getAttribute('x'))).filter(n => !isNaN(n));
+    const minX = Math.min(...xs) - 10;
+    const maxX = Math.max(...xs) + 30;
+    
+    svg.setAttribute('viewBox', `${minX} 0 ${maxX - minX} 210`);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '210');
+    svg.removeAttribute('preserveAspectRatio');
+    svg.style.display = 'block';
+}
+
+setTimeout(fixLogtimeSVG, 500);
+
+function fixAchievementLines() {
+    const widget = document.querySelector('[data-iil-widget="last-achievements"]');
+    if (!widget) return;
+    const container = widget.querySelector('.container-inner-item.boxed');
+    if (container) {
+        container.style.background = 'transparent';
+        container.style.paddingBottom = '0';
+        container.style.paddingTop = '0';
+    }
+    const items = [...widget.querySelectorAll('.achievement-item')];
+    items.forEach((item, i) => {
+        item.style.marginBottom = '0';
+        item.style.borderRadius = '0';
+        if (i === 0) item.style.borderRadius = '8px 8px 0 0';
+        if (i === items.length - 1) item.style.borderRadius = '0 0 8px 8px';
+        if (items.length === 1) item.style.borderRadius = '8px';
+    });
+}
+
+setTimeout(fixAchievementLines, 300);
