@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   improv.js                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/11/13 00:37:55 by fbes          #+#    #+#                 */
-/*   Updated: 2025/07/18 22:37:13 by fbes          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   improv.js                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mde-maga <mde-maga@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/13 00:37:55 by fbes              #+#    #+#             */
+/*   Updated: 2026/04/19 15:22:55 by mde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,21 @@ function labelWidgets() {
     });
 }
 
+function updateEvalPoints() {
+    const evalTitle = document.querySelector('[data-iil-widget="evaluations"] h4.profile-title');
+    if (!evalTitle) return;
+    if (evalTitle.querySelector('.iil-eval-points')) return;
+
+    const points = window._iilEvalPoints;
+    if (!points) return;
+
+    const badge = document.createElement('span');
+    badge.className = 'iil-eval-points';
+    badge.textContent = `${points} points`;
+    evalTitle.insertBefore(badge, evalTitle.querySelector('.simple-link'));
+}
+updateEvalPoints();
+
 function getSavedWidgets() {
     try {
         return JSON.parse(localStorage.getItem(WIDGET_STORAGE_KEY) || "[]");
@@ -286,7 +301,7 @@ function createLayoutButtons() {
     editBtn.type = "button";
     editBtn.title = "Edit layout";
     editBtn.className = "iil-layout-btn";
-    editBtn.innerHTML = '<span class="iil-layout-btn-icon">✎</span><span>Edit layout</span>';
+    editBtn.innerHTML = '<span class="iil-layout-btn-icon">✎</span><span>Edit </span>';
 
     const resetBtn = document.createElement("button");
     resetBtn.type = "button";
@@ -327,7 +342,7 @@ function setEditMode(enabled) {
 
     editBtn.innerHTML = enabled
         ? '<span class="iil-layout-btn-icon">✓</span><span>Done</span>'
-        : '<span class="iil-layout-btn-icon">✎</span><span>Edit layout</span>';
+        : '<span class="iil-layout-btn-icon">✎</span><span>Edit </span>';
 
     const resetBtn = controls.querySelector(".iil-layout-btn-reset");
     if (resetBtn) resetBtn.style.display = enabled ? "inline-flex" : "none";
@@ -470,9 +485,12 @@ const PLATFORMS = {
         label: "LinkedIn",
         modes: null,
         placeholder: { default: "https://linkedin.com/in/username" },
-        validate: (val) => val.startsWith("https://linkedin.com/in/"),
+        validate: (val) => val.startsWith("https://www.linkedin.com/in/") || val.startsWith("https://www.linkedin.com/in/"),
         toHref: (val) => val,
-        display: (val) => val.replace("https://linkedin.com/in/", ""),
+        display: (val) => {
+            const slug = val.replace("https://www.linkedin.com/in/", "").replace("https://linkedin.com/in/", "").replace(/\/$/, "");
+            return slug.replace(/-[a-z0-9]{8,}$/i, "").replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+        }   ,
     },
 };
 
@@ -485,10 +503,22 @@ function saveSocialLinks(links) {
     localStorage.setItem(SOCIAL_STORAGE_KEY, JSON.stringify(links));
 }
 
+const PLATFORM_ICONS = {
+    discord: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.082.116 18.105.136 18.12a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>`,
+    github: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>`,
+    linkedin: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>`,
+};
+
 function createSocialBox() {
     const target = document.querySelector(".profile-item .user-header-box.infos");
     if (!target) return;
     if (document.getElementById("iil-social-box")) return;
+
+    const evalPointsEl = document.querySelector('.user-correction-point-value');
+    const evalPoints = evalPointsEl?.firstElementChild?.textContent.trim()
+        || evalPointsEl?.textContent.trim().split('\n')[0].trim()
+        || null;
+    if (evalPoints) window._iilEvalPoints = evalPoints;
 
     const links = getSocialLinks();
 
@@ -504,9 +534,12 @@ function createSocialBox() {
     function render(editing) {
         if (editing) {
             box.innerHTML = `
-                <div style="position:absolute;right:0;display:flex;gap:12px">
-                    <button class="iil-social-hbtn" id="iil-social-confirm" title="Save">✓</button>
-                    <button class="iil-social-hbtn" id="iil-social-cancel" title="Cancel">✕</button>
+                <div id="iil-social-header">
+                    <span id="iil-social-title">Links</span>
+                    <div style="position:absolute;right:0;display:flex;gap:12px;align-items:center">
+                        <button class="iil-social-hbtn" id="iil-social-confirm" title="Save">✓</button>
+                        <button class="iil-social-hbtn" id="iil-social-cancel" title="Cancel">✕</button>
+                    </div>
                 </div>
                 <div id="iil-social-links">
                     ${Object.entries(PLATFORMS).map(([key, p]) => {
@@ -515,6 +548,7 @@ function createSocialBox() {
                         const val = saved.val || "";
                         return `
                         <div class="iil-social-row iil-social-edit-row" data-key="${key}">
+                            <span class="iil-social-icon-sym">${PLATFORM_ICONS[key]}</span>
                             <span class="iil-social-platform-label">${p.label}</span>
                             ${p.modes ? `
                                 <select class="iil-social-mode-select" data-key="${key}">
@@ -527,7 +561,6 @@ function createSocialBox() {
                 </div>
             `;
 
-            // update placeholder on mode change
             box.querySelectorAll(".iil-social-mode-select").forEach(sel => {
                 sel.addEventListener("change", () => {
                     const key = sel.dataset.key;
@@ -571,21 +604,22 @@ function createSocialBox() {
                         const mode = saved.mode || (p.modes ? p.modes[0] : "default");
                         const href = val ? p.toHref(val, mode) : null;
                         const display = val ? p.display(val, mode) : null;
+                        const icon = PLATFORM_ICONS[key];
                         return val ? `
                             ${href
                                 ? `<a class="iil-social-row iil-social-link" href="${href}" target="_blank" rel="noopener">
-                                        <span class="iil-social-platform-tag">${p.label}</span>
+                                        <span class="iil-social-icon-sym">${icon}</span>
                                         <span class="iil-social-link-label">${display}</span>
                                         <span class="iil-social-link-arrow">↗</span>
                                    </a>`
                                 : `<div class="iil-social-row iil-social-nolink">
-                                        <span class="iil-social-platform-tag">${p.label}</span>
+                                        <span class="iil-social-icon-sym">${icon}</span>
                                         <span class="iil-social-link-label">${display}</span>
                                    </div>`
                             }
                         ` : `
                             <div class="iil-social-row iil-social-empty">
-                                <span class="iil-social-platform-tag">${p.label}</span>
+                                <span class="iil-social-icon-sym">${icon}</span>
                                 <span>—</span>
                             </div>
                         `;
@@ -598,6 +632,7 @@ function createSocialBox() {
 
     render(false);
     target.replaceWith(box);
+    setTimeout(updateEvalPoints, 100);
 }
 
 
@@ -612,3 +647,4 @@ function initSocialBox() {
 }
 
 initSocialBox();
+

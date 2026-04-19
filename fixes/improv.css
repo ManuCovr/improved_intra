@@ -1654,3 +1654,436 @@ body .iil-hidden-pill { font-weight: 600 !important; }
     border-color: var(--theme-color) !important;
     outline: none !important;
 }
+
+/* ── Real eval cards ── */
+[data-iil-widget="evaluations"] .project-item.reminder {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 12px 16px !important;
+    margin-bottom: 6px !important;
+    border-radius: 8px !important;
+    border-left: 3px solid var(--theme-color) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    gap: 12px !important;
+    transition: background 0.15s ease !important;
+}
+[data-iil-widget="evaluations"] .project-item.reminder:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+[data-iil-widget="evaluations"] .project-item-text {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    flex: 1 !important;
+}
+[data-iil-widget="evaluations"] .project-item-link {
+    color: var(--theme-color) !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+}
+[data-iil-widget="evaluations"] .project-item-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-shrink: 0 !important;
+}
+[data-iil-widget="evaluations"] .project-item-actions .time {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    opacity: 0.6 !important;
+}
+[data-iil-widget="evaluations"] .project-item-actions .missing-user {
+    color: #f44336 !important;
+    font-size: 14px !important;
+    opacity: 0.6 !important;
+    transition: opacity 0.15s ease !important;
+}
+[data-iil-widget="evaluations"] .project-item-actions .missing-user:hover {
+    opacity: 1 !important;
+}
+[data-iil-widget="evaluations"] .modal {
+    display: none !important;
+}
+
+/* ── XP bar shimmer + glow ── */
+.profile-item .user-progress .progress {
+    height: 40px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+.profile-item .user-progress .progress .progress-bar {
+    box-shadow: 0 0 12px var(--theme-color), 0 0 4px var(--theme-color) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.profile-item .user-progress .progress .progress-bar::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 60% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+    animation: xp-shimmer 2.5s ease-in-out infinite !important;
+}
+@keyframes xp-shimmer {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+.profile-item .user-progress .progress .on-progress {
+    line-height: 40px !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.04em !important;
+}
+
+/* ── Layout controls ── */
+#iil-layout-controls {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background: rgb(18, 20, 26) !important;
+    border-radius: 0 !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding: 2px 0 2px 15px !important;
+    margin: 2px 0 !important;
+    gap: 24px !important;
+}
+
+/* ── Gap fixes ── */
+.profile-item .user-progress {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+.profile-item .profile-left-box {
+    padding-bottom: 0 !important;
+}
+.container-inner-item.profile-item-top {
+    margin-bottom: 0 !important;
+}
+.home-middle-td,
+.container-fullsize {
+    background: transparent !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+Comparing to what we built, you're missing:
+css
+
+/* ── Real eval cards ── */
+[data-iil-widget="evaluations"] .project-item.reminder {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 12px 16px !important;
+    margin-bottom: 6px !important;
+    border-radius: 8px !important;
+    border-left: 3px solid var(--theme-color) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    gap: 12px !important;
+    transition: background 0.15s ease !important;
+}
+[data-iil-widget="evaluations"] .project-item.reminder:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+[data-iil-widget="evaluations"] .project-item-text {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    flex: 1 !important;
+}
+[data-iil-widget="evaluations"] .project-item-link {
+    color: var(--theme-color) !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+}
+[data-iil-widget="evaluations"] .project-item-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-shrink: 0 !important;
+}
+[data-iil-widget="evaluations"] .project-item-actions .time {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    opacity: 0.6 !important;
+}
+[data-iil-widget="evaluations"] .project-item-actions .missing-user {
+    color: #f44336 !important;
+    font-size: 14px !important;
+    opacity: 0.6 !important;
+    transition: opacity 0.15s ease !important;
+}
+[data-iil-widget="evaluations"] .project-item-actions .missing-user:hover {
+    opacity: 1 !important;
+}
+[data-iil-widget="evaluations"] .modal {
+    display: none !important;
+}
+
+/* ── XP bar shimmer + glow ── */
+.profile-item .user-progress .progress {
+    height: 40px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+.profile-item .user-progress .progress .progress-bar {
+    box-shadow: 0 0 12px var(--theme-color), 0 0 4px var(--theme-color) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.profile-item .user-progress .progress .progress-bar::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 60% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+    animation: xp-shimmer 2.5s ease-in-out infinite !important;
+}
+@keyframes xp-shimmer {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+.profile-item .user-progress .progress .on-progress {
+    line-height: 40px !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.04em !important;
+}
+
+/* ── Layout controls ── */
+#iil-layout-controls {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background: rgb(18, 20, 26) !important;
+    border-radius: 0 !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding: 2px 0 2px 15px !important;
+    margin: 2px 0 !important;
+    gap: 24px !important;
+}
+
+/* ── Gap fixes ── */
+.profile-item .user-progress {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+.profile-item .profile-left-box {
+    padding-bottom: 0 !important;
+}
+.container-inner-item.profile-item-top {
+    margin-bottom: 0 !important;
+}
+.home-middle-td,
+.container-fullsize {
+    background: transparent !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* ── Eval points badge ── */
+.iil-eval-points {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    opacity: 0.5 !important;
+    margin-left: 8px !important;
+    vertical-align: middle !important;
+}
+
+/* ── Social icon ── */
+.iil-social-icon-sym {
+    width: 20px !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0.25 !important;
+    color: var(--theme-color) !important;
+}
+.iil-social-link:hover .iil-social-icon-sym,
+.iil-social-nolink:hover .iil-social-icon-sym {
+    opacity: 0.7 !important;
+}
+.iil-social-nolink {
+    color: var(--theme-color) !important;
+    justify-content: center !important;
+}
+.iil-social-link {
+    text-decoration: none !important;
+    color: var(--theme-color) !important;
+    background: transparent !important;
+    transition: background 0.15s ease !important;
+}
+.iil-social-link:hover {
+    background: rgba(255,255,255,0.06) !important;
+}
+
+/* ── Achievement section ── */
+#iil-ach-section {
+    width: 100% !important;
+    padding: 10px 0 0 0 !important;
+    margin-top: 8px !important;
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+    display: block !important;
+}
+#iil-ach-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    margin-bottom: 8px !important;
+}
+#iil-ach-title {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    opacity: 0.4 !important;
+    color: var(--theme-color) !important;
+}
+#iil-ach-edit {
+    position: absolute !important;
+    right: 0 !important;
+}
+#iil-ach-badges {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    align-items: center !important;
+}
+.iil-ach-badge {
+    position: relative !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,0.06) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    transition: background 0.15s ease !important;
+}
+.iil-ach-badge:hover {
+    background: rgba(255,255,255,0.12) !important;
+    overflow: visible !important;
+}
+.iil-ach-badge img {
+    width: 28px !important;
+    height: 28px !important;
+    object-fit: contain !important;
+    border-radius: 0 !important;
+    display: block !important;
+}
+.iil-ach-empty {
+    font-size: 11px !important;
+    opacity: 0.3 !important;
+    font-style: italic !important;
+}
+.iil-ach-tooltip {
+    display: none !important;
+    position: absolute !important;
+    bottom: calc(100% + 8px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: rgba(18, 20, 26, 0.96) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 6px !important;
+    padding: 8px 10px !important;
+    min-width: 160px !important;
+    max-width: 220px !important;
+    z-index: 999 !important;
+    pointer-events: none !important;
+    text-align: center !important;
+}
+.iil-ach-badge:hover .iil-ach-tooltip {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+.iil-ach-tooltip-name {
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    color: var(--theme-color) !important;
+}
+.iil-ach-tooltip-desc {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    opacity: 0.6 !important;
+    line-height: 1.4 !important;
+}
+#iil-ach-picker-title {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    opacity: 0.4 !important;
+    margin-bottom: 8px !important;
+    text-align: center !important;
+}
+#iil-ach-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    justify-content: center !important;
+    max-height: 120px !important;
+    overflow-y: auto !important;
+    margin-bottom: 8px !important;
+}
+.iil-ach-option {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,0.04) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    padding: 4px !important;
+    transition: background 0.15s ease !important;
+    border: 2px solid transparent !important;
+}
+.iil-ach-option:hover { background: rgba(255,255,255,0.08) !important; }
+.iil-ach-selected {
+    border-color: var(--theme-color) !important;
+    background: rgba(255,255,255,0.08) !important;
+}
+.iil-ach-option img {
+    width: 26px !important;
+    height: 26px !important;
+    object-fit: contain !important;
+}
+#iil-ach-picker-btns {
+    display: flex !important;
+    gap: 8px !important;
+    justify-content: center !important;
+}
+#iil-ach-save {
+    background: var(--theme-color) !important;
+    color: #000 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 5px 14px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+}
+#iil-ach-cancel {
+    background: rgba(255,255,255,0.06) !important;
+    color: rgba(255,255,255,0.5) !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 5px 14px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+}
