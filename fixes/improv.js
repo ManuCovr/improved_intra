@@ -6,7 +6,7 @@
 /*   By: mde-maga <mde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 00:37:55 by fbes              #+#    #+#             */
-/*   Updated: 2026/04/19 15:22:55 by mde-maga         ###   ########.fr       */
+/*   Updated: 2026/04/20 10:45:10 by mde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -452,6 +452,26 @@ function initWidgetLayout() {
     initLayoutControls();
     enableWidgetDragging();
     setEditMode(editMode);
+    const profileItem = document.querySelector('.container-item.profile-item.full-width');
+    if (profileItem) {
+        profileItem.style.setProperty('margin-bottom', '0', 'important');
+        profileItem.style.setProperty('padding', '0', 'important');
+        profileItem.style.setProperty('min-height', '0', 'important');
+    }
+    const fullsize = document.querySelector('.container-fullsize.full-width.fixed-height');
+    if (fullsize) fullsize.style.setProperty('margin-top', '0', 'important');
+
+    // Force collapse the gap between edit button and widgets
+    const controls = document.getElementById('iil-layout-controls');
+    if (controls) {
+        controls.style.setProperty('margin-bottom', '0', 'important');
+        controls.style.setProperty('padding-bottom', '0', 'important');
+    }
+    const widgetRow = document.querySelector('.container-fullsize > .row');
+    if (widgetRow) {
+        widgetRow.style.setProperty('margin-top', '0', 'important');
+        widgetRow.style.setProperty('padding-top', '0', 'important');
+    }
 }
 
 if (document.readyState === "loading") {
@@ -651,15 +671,15 @@ initSocialBox();
 function fixLogtimeSVG() {
     const svg = document.querySelector('[data-iil-widget="logtime"] #user-locations');
     if (!svg) return;
-    
+
     // find the actual bounds of the content
     const rects = [...svg.querySelectorAll('rect')];
     if (!rects.length) return;
-    
+
     const xs = rects.map(r => parseFloat(r.getAttribute('x'))).filter(n => !isNaN(n));
     const minX = Math.min(...xs) - 10;
     const maxX = Math.max(...xs) + 30;
-    
+
     svg.setAttribute('viewBox', `${minX} 0 ${maxX - minX} 210`);
     svg.setAttribute('width', '100%');
     svg.setAttribute('height', '210');

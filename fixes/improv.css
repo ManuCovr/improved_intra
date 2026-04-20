@@ -6,7 +6,7 @@
 /*   By: mde-maga <mde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 01:00:01 by fbes              #+#    #+#             */
-/*   Updated: 2026/04/20 09:32:53 by mde-maga         ###   ########.fr       */
+/*   Updated: 2026/04/20 10:45:29 by mde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -987,16 +987,18 @@ textarea {
 }
 
 #iil-layout-controls {
-    margin: 10px 0 14px 0;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 14px 0;
-    background-color: #12141a !important;
-    background: #12141a !important;
-    border-radius: 6px;
-    gap: 24px;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding: 2px 0 2px 15px !important;
+    padding-top: 24px !important;
+    margin: 4px 0 8px 0 !important;
+    gap: 24px !important;
 }
 
 .iil-layout-btn {
@@ -1737,21 +1739,6 @@ body .iil-hidden-pill { font-weight: 600 !important; }
     letter-spacing: 0.04em !important;
 }
 
-/* ── Layout controls ── */
-#iil-layout-controls {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    background: rgb(18, 20, 26) !important;
-    border-radius: 0 !important;
-    height: auto !important;
-    min-height: unset !important;
-    padding: 2px 0 2px 15px !important;
-    margin: 2px 0 !important;
-    gap: 24px !important;
-}
-
 /* ── Gap fixes ── */
 .profile-item .user-progress {
     margin-bottom: 0 !important;
@@ -1852,21 +1839,6 @@ body .iil-hidden-pill { font-weight: 600 !important; }
     font-size: 15px !important;
     font-weight: 900 !important;
     letter-spacing: 0.04em !important;
-}
-
-/* ── Layout controls ── */
-#iil-layout-controls {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    background: rgb(18, 20, 26) !important;
-    border-radius: 0 !important;
-    height: auto !important;
-    min-height: unset !important;
-    padding: 2px 0 2px 15px !important;
-    margin: 2px 0 !important;
-    gap: 24px !important;
 }
 
 /* ── Gap fixes ── */
@@ -2239,4 +2211,15 @@ body .iil-hidden-pill { font-weight: 600 !important; }
 }
 [data-iil-widget="skills"] #skill-chart {
     padding: 8px !important;
+}
+
+.container-item.profile-item.full-width {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+}
+
+.container-fullsize.full-width.fixed-height {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
 }
