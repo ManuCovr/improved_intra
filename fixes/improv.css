@@ -6,7 +6,7 @@
 /*   By: mde-maga <mde-maga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 01:00:01 by fbes              #+#    #+#             */
-/*   Updated: 2026/04/20 09:29:05 by mde-maga         ###   ########.fr       */
+/*   Updated: 2026/04/20 09:32:53 by mde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -986,7 +986,6 @@ textarea {
     display: none !important;
 }
 
-// Edit layout
 #iil-layout-controls {
     margin: 10px 0 14px 0;
     width: 100%;
