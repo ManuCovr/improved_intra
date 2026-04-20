@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   improv.css                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/11/28 01:00:01 by fbes          #+#    #+#                 */
-/*   Updated: 2025/07/18 15:41:10 by fbes          ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   improv.css                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mde-maga <mde-maga@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/28 01:00:01 by fbes              #+#    #+#             */
+/*   Updated: 2026/04/20 09:29:05 by mde-maga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -986,7 +986,7 @@ textarea {
     display: none !important;
 }
 
-// Edit layout 
+// Edit layout
 #iil-layout-controls {
     margin: 10px 0 14px 0;
     width: 100%;
@@ -1771,8 +1771,6 @@ body .iil-hidden-pill { font-weight: 600 !important; }
     margin-top: 0 !important;
 }
 
-Comparing to what we built, you're missing:
-css
 
 /* ── Real eval cards ── */
 [data-iil-widget="evaluations"] .project-item.reminder {
